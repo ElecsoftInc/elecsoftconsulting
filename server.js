@@ -13,6 +13,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const nodemailer  = require('nodemailer');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -40,8 +41,49 @@ app.use("/api/users", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("home");
 });
+
+app.get('/generic', (req, res) => {
+  res.render('generic')
+})
+
+app.get('/elements', (req, res) => {
+  res.render('elements')
+})
+
+//sends email from Get in touch form
+app.post('/mail', (req, res) => {
+  console.log("this is the info you get", req.body)
+
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'elecsoftconsulting@gmail.com',
+      pass: process.env.NODEMAILER_PASS
+    }
+  });
+
+  let mailOptions = {
+    from: req.body.email,
+    to: 'elecsoftconsulting@gmail.com',
+    subject: `${req.body.name} wants to get in touch.`,
+    text: `${req.body.name}, ${req.body.email}, ${req.body.message}`,
+    html: `<div><h4>${req.body.name} ~ ${req.body.email}</h4> <p>${req.body.message}</p></div>`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log("THERE IS AN ERROR",error)
+    }
+      console.log('Message %s sent: %s', info.messageId, info.response)
+  });
+
+  setTimeout(function () {
+    res.redirect('/');
+  }, 5000);
+})
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
