@@ -79,9 +79,14 @@ app.post('/mail', (req, res) => {
       console.log('Message %s sent: %s', info.messageId, info.response)
   });
 
-  setTimeout(function () {
-    res.redirect('/');
-  }, 5000);
+  // setTimeout(function () {
+  //   res.redirect('/');
+  // }, 5000);
+  var templateVar = {
+    thanks: 'Thank you for getting in touch. We will get back to you shortly.'
+  }
+
+  res.send(templateVar);
 })
 
 

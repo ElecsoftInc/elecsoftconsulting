@@ -73,9 +73,25 @@
           $('#testimonial').toggle();
         })
 
-        $('.mail').on('click', function() {
-          $('#ThanksForMail').append('<h3 style="color:white;">Thanks for getting in touch. We will get back to you shortly.</h3>')
+        $('.mailForm').on('submit', function(e){
+          e.preventDefault();
+          $.ajax({
+            method: 'POST',
+            url: '/mail',
+            data: {
+              name: $('#name').val(),
+              email: $('#email').val(),
+              message: $('#message').val()
+            }
+          }).done((fromServer) => {
+            console.log("This is the response from the server", fromServer.thanks)
+            $('#ThanksForMail').append(`<h3 style="color: white;"> ${fromServer.thanks} </h3>`)
+            $('#name').val('');
+            $('#email').val('');
+            $('#message').val('');
+          })
         })
+
 
 	});
 
