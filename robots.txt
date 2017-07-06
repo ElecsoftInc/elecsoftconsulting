@@ -1,0 +1,2 @@
+user-agent:*
+sitemap: http://elelcsoftconsulting.com/sitemap.xml
