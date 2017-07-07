@@ -45,9 +45,6 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get('/elements', (req, res) => {
-  res.render('elements');
-})
 
 app.get('/sitemap.xml', (req, res) => {
   res.render('sitemap')
