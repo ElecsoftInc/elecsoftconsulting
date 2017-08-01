@@ -103,6 +103,24 @@
           })
         })
 
+        $('#adminCourseForm').on('submit', (e)=>{
+          e.preventDefault();
+          $.ajax({
+            type: 'POST',
+            url: '/admin/addACourse',
+            data: {
+              date: $('.date').val(),
+              url: $('.url').val(),
+              title: $('.title').val(),
+              description: $('.description').val()
+            }
+          }).done((response) => {
+            console.log('response', response);
+            var data = JSON.parse(response).thanks;
+            $('#thanksss').append(data)
+          })
+        })
+
 
 	});
 

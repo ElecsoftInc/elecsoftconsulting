@@ -16,6 +16,7 @@
     "dotenv": "^2.0.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
+    "express-session": "^1.15.4",
     "express-sitemap": "^1.7.0",
     "knex": "^0.11.7",
     "knex-logger": "^0.1.0",

@@ -14,6 +14,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const nodemailer  = require('nodemailer');
+const session     = require('express-session')
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -23,6 +24,12 @@ const usersRoutes = require("./routes/users");
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
+
+app.use(session({
+  secret: 'sshshshsh',
+  resave: true,
+  saveUninitialized: true
+}));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
@@ -48,6 +55,79 @@ app.get("/", (req, res) => {
 
 app.get('/sitemap.xml', (req, res) => {
   res.render('sitemap')
+})
+
+app.get('/courses', (req, res)=> {
+  knex
+    .select('*')
+    .from('courses')
+    .then((response)=> {
+      console.log("this is the response", response)
+      var templateVar = {response: response}
+      res.render('courses', templateVar);
+    })
+})
+
+app.get('/admin', (req, res) => {
+  res.render('form');
+})
+
+app.get('/admin/course', (req, res)=> {
+  if (req.session.userID) {
+    res.render('addCourse')
+  } else {
+    res.send("NOPE.")
+  }
+})
+
+app.get('/admin/templates', (req, res) => {
+  res.send("This does not work yet");
+})
+
+app.post('/adminDash', (req, res) => {
+  if(req.session.userID){
+    res.render('adminDash');
+  } else{
+      console.log(req.body);
+      console.log(req.body.email)
+      console.log(req.body.password)
+      knex('users')
+          .select('id', 'email', 'password')
+          .where({
+            email: req.body.email,
+            password: req.body.password
+          })
+      .then((response)=> {
+        console.log("RESPONSE", response)
+        console.log("req session before", req.session.userID)
+        console.log('setting session now')
+        req.session.userID = response[0].id;
+        console.log('req session after', req.session.userID)
+        res.render('adminDash')
+      })
+  }
+})
+
+app.post('/admin/addACourse', (req, res)=> {
+  console.log(req.body)
+  console.log(req.body.date)
+  console.log(req.body.url)
+  console.log(req.body.title)
+  console.log(req.body.description)
+  knex('courses')
+      .insert({
+        title: req.body.title,
+        date_of_event: req.body.date,
+        event_url: req.body.url,
+        event_description: req.body.description
+      })
+      .then((response)=> {
+        console.log("inside response", response)
+        var thankYouMsg = {
+          thanks: 'Your course has been added. Go to the courses page and check it out.'
+        }
+        res.send(JSON.stringify(thankYouMsg));
+      })
 })
 
 
