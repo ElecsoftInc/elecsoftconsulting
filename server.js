@@ -103,7 +103,7 @@ app.post('/admin/adminDash', (req, res) => {
         console.log('setting session now')
         req.session.userID = response[0].id;
         console.log('req session after', req.session.userID)
-        res.render('adminDash')
+        res.render('adminDashboard')
       })
   }
 })
