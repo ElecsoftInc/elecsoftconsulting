@@ -92,7 +92,7 @@ app.post('/admin/adminDash', (req, res) => {
       console.log(req.body.email)
       console.log(req.body.password)
       knex('users')
-          .select('id', 'email', 'password')
+          .select('users_id', 'email', 'password')
           .where({
             email: req.body.email,
             password: req.body.password
