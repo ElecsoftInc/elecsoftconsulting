@@ -76,7 +76,7 @@ app.get('/admin/course', (req, res)=> {
   if (req.session.userID) {
     res.render('addCourse')
   } else {
-    res.send("NOPE.", req.session.userID)
+    res.send("NOPE.")
   }
 })
 
