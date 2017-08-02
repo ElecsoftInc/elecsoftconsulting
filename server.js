@@ -143,7 +143,7 @@ app.get('/admin/editCourse/:id', (req, res)=> {
       })
       .then((response) => {
         console.log("this is the response from the server", response);
-        var templateVar = {response: response};
+        var templateVar = {response: response, admin: req.session.userID};
         res.render('editACourse', templateVar)
       })
   } else {
