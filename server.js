@@ -172,7 +172,7 @@ app.post('/admin/updateCourse/:id', (req, res)=> {
   }
 })
 
-app.post('/admin/deleteCourse/:id', (req, res)=> {
+app.get('/admin/deleteCourse/:id', (req, res)=> {
   if(req.session.userID){
     knex('courses')
         .where({
