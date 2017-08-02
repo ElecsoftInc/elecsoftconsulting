@@ -36,7 +36,7 @@ ElecSoft Consulting. Taking care of all your web needs.
 					</header>
 
 					<a href="#" class="image fit"><img src="/images/learning.jpg" alt="" /></a>
-          <% if (response) { %>
+          <% if (response.length >= 1) { %>
             <% if (!admin) { %>
               <% for(var i = 0; i < response.length; i ++) { %>
                 <div id="<%= response[i].course_id %>">
