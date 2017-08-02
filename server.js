@@ -158,10 +158,10 @@ app.post('/admin/updateCourse/:id', (req, res)=> {
             course_id: req.params.id
           })
           .update({
-            title: updateTitle,
-            date_of_event: updateDate,
-            event_url: updateUrl,
-            event_description: updateDescription
+            title: req.body.updateTitle,
+            date_of_event: req.body.updateDate,
+            event_url: req.body.updateUrl,
+            event_description: req.body.updateDescription
           })
     .then((response)=> {
       console.log('INSIDE THE RESPONSE', response)
