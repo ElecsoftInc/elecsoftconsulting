@@ -69,12 +69,12 @@ app.get('/courses', (req, res)=> {
 })
 
 app.get('/admin', (req, res) => {
-  res.render('form');
+  res.render('adminForm');
 })
 
 app.get('/admin/course', (req, res)=> {
   if (req.session.userID) {
-    res.render('addCourse')
+    res.send('REQ.SESSION EXISTS', req.session.userID)
   } else {
     res.send("NOPE.")
   }
@@ -86,7 +86,7 @@ app.get('/admin/templates', (req, res) => {
 
 app.post('/admin/adminDash', (req, res) => {
   if(req.session.userID){
-    res.render('adminDash');
+    res.render('adminDashboard');
   } else{
       console.log(req.body);
       console.log(req.body.email)
