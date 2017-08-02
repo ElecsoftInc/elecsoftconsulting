@@ -142,8 +142,9 @@ app.post('/admin/editCourse/:id', (req, res)=> {
         course_id: req.params.id
       })
       .then((response) => {
-        console.log("this is the response from the server");
-        res.render('editACourse')
+        console.log("this is the response from the server", response);
+        var templateVar = {response: response};
+        res.render('editACourse', templateVar)
       })
   } else {
     res.send('NOOOOOOPE.')
