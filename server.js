@@ -131,7 +131,10 @@ app.post('/admin/addACourse', (req, res)=> {
 })
 
 app.post('/admin/editCourse/:id', (req, res)=> {
+  console.log("HELLLLLLO")
+  console.log('req.params', req.params)
   if (req.session.userID){
+    console.log("CHECK THIS OUT HELLLLLLO")
     knex
       .select('*')
       .from('courses')
