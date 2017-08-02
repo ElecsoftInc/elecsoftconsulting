@@ -18,6 +18,9 @@ ElecSoft Consulting. Taking care of all your web needs.
 				<nav id="nav">
 					<ul>
 					</ul>
+          <% if (admin) {%>
+          <p>Hello, admin!</p>
+          <%}%>
 				</nav>
 			</header>
 
@@ -34,18 +37,34 @@ ElecSoft Consulting. Taking care of all your web needs.
 
 					<a href="#" class="image fit"><img src="/images/learning.jpg" alt="" /></a>
 
-          <% for(var i = 0; i < response.length; i ++) { %>
-          <div>
+          <% if (!admin) { %>
+            <% for(var i = 0; i < response.length; i ++) { %>
+              <div id="<%= response[i].course_id %>">
 
-          <h3><strong><%= response[i].title %></strong></h3>
+                <h3><strong><%= response[i].title %></strong></h3>
 
-          <strong>Date</strong>: <%= response[i].date_of_event %> <br> <strong>Event URL</strong>: <a href="<%= response[i].event_url %>">Click Here</a>
+                <strong>Date</strong>: <%= response[i].date_of_event %> <br> <strong>Event URL</strong>: <a href="<%= response[i].event_url %>">Click Here</a>
 
-					<p><%= response[i].event_description %></p>
+      					<p><%= response[i].event_description %></p>
+              </div>
+            <% } %>
+          <% } else { %>
+            <% for(var i = 0; i < response.length; i ++) { %>
+              <div id="<%= response[i].course_id %>">
 
-          </div>
+                <h3><strong><%= response[i].title %></strong></h3>
+
+                <strong>Date</strong>: <%= response[i].date_of_event %> <br> <strong>Event URL</strong>: <a href="<%= response[i].event_url %>" target="_blank">Click Here</a>
+
+                <p><%= response[i].event_description %></p>
+                <ul class="actions">
+                  <li><a class="button special" href="/admin/editCourse/<%= response[i].course_id %>">Edit</a></li>
+                  <li><a class="button special" href="/admin/deleteCourse/<%= response[i].course_id %>" id="deleteButton">Delete</a></li>
+                </ul>
+              </div>
+              <div id="deleted"></div>
+            <% } %>
           <% } %>
-
 				</div>
 			</section>
 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Course ~ Elecsoft Consulting</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+
+  <!-- Header -->
+    <header id="header">
+      <h1><strong><a href="/">Elecsoft Consulting</a></strong></h1>
+      <nav id="nav">
+        <ul>
+        </ul>
+        <% if (admin) {%>
+        <p>Hello, admin!</p>
+        <% } %>
+      </nav>
+    </header>
+
+  <div id="<%= response[0].course_id %>">
+
+    <h3><strong><%= response[0].title %></strong></h3>
+
+    <strong>Date</strong>: <%= response[0].date_of_event %> <br> <strong>Event URL</strong>: <a href="<%= response[0].event_url %>">Click Here</a>
+
+    <p><%= response[0].event_description %></p>
+  </div>
+
+
+  <!-- Form -->
+    <section>
+      <h3>Edit Course Here</h3>
+      <form method="post" action="/admin/updateCourse/<%= response[0].course_id %>" id="adminCourseForm">
+        <div class="row uniform 50%">
+          <div class="6u 12u$(xsmall)">
+            <input type="text" name="updateDate" id="name" class="date" value="" placeholder="Date (DD/MM/YYYY)" required />
+          </div>
+          <div class="6u$ 12u$(xsmall)">
+            <input type="text" name="updateUrl" id="email" class="url" value="" placeholder="Link to the Event" required/>
+          </div>
+          <div class="6u$ 12u$(xsmall)">
+            <input type="text" name="updateTitle" id="email" class="title" value="" placeholder="Title here" required/>
+          </div>
+          <div class="12u$">
+            <textarea name="updateDescription" id="message" class="description" placeholder="Enter the description" rows="6" required></textarea>
+          </div>
+          <div class="12u$">
+            <ul class="actions">
+              <li><input type="submit" id="updateButton" value="Add course" class="special" /></li>
+              <li><input type="reset" value="Reset" /></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section id="submitted"></section>
+
+    <!-- Scripts -->
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/skel.min.js"></script>
+  <script src="/assets/js/util.js"></script>
+  <script src="/assets/js/main.js"></script>
+
+</body>
+</html>

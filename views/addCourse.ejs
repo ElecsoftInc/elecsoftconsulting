@@ -14,16 +14,16 @@
       <form method="post" action="/admin/addACourse" id="adminCourseForm">
         <div class="row uniform 50%">
           <div class="6u 12u$(xsmall)">
-            <input type="text" name="date" id="name" class="date" value="" placeholder="Date (DD/MM/YYYY)" />
+            <input type="text" name="date" id="name" class="date" value="" placeholder="Date (DD/MM/YYYY)" required />
           </div>
           <div class="6u$ 12u$(xsmall)">
-            <input type="text" name="url" id="email" class="url" value="" placeholder="Link to the Event" />
+            <input type="text" name="url" id="email" class="url" value="" placeholder="Link to the Event" required/>
           </div>
           <div class="6u$ 12u$(xsmall)">
-            <input type="text" name="title" id="email" class="title" value="" placeholder="Title here" />
+            <input type="text" name="title" id="email" class="title" value="" placeholder="Title here" required />
           </div>
           <div class="12u$">
-            <textarea name="description" id="message" class="description" placeholder="Enter the description" rows="6"></textarea>
+            <textarea name="description" id="message" class="description" placeholder="Enter the description" rows="6" required></textarea>
           </div>
           <div class="12u$">
             <ul class="actions">

@@ -63,7 +63,7 @@ app.get('/courses', (req, res)=> {
     .from('courses')
     .then((response)=> {
       console.log("this is the response", response)
-      var templateVar = {response: response}
+      var templateVar = {response: response, admin: req.session.userID}
       res.render('courses', templateVar);
     })
 })
@@ -128,6 +128,58 @@ app.post('/admin/addACourse', (req, res)=> {
         }
         res.send(JSON.stringify(thankYouMsg));
       })
+})
+
+app.post('/admin/editCourse/:id', (req, res)=> {
+  if (req.session.userID){
+    knex
+      .select('*')
+      .from('courses')
+      .where({
+        course_id: req.params.id
+      })
+      .then((response) => {
+        console.log("this is the response from the server");
+        res.render('editACourse')
+      })
+  } else {
+    res.send('NOOOOOOPE.')
+  }
+})
+
+app.post('/admin/updateCourse/:id', (req, res)=> {
+  if (req.session.userID){
+    knex('courses')
+          .where({
+            course_id: req.params.id
+          })
+          .update({
+            title: updateTitle,
+            date_of_event: updateDate,
+            event_url: updateUrl,
+            event_description: updateDescription
+          })
+    .then((response)=> {
+      console.log('INSIDE THE RESPONSE', response)
+      setTimeout(()=>{
+        res.redirect('/courses')
+      }, 5000)
+    })
+  }
+})
+
+app.post('/admin/deleteCourse/:id', (req, res)=> {
+  if(req.session.userID){
+    knex('courses')
+        .where({
+          course_id: req.params.id
+        })
+        .del()
+    .then((response)=> {
+      console.log("inside the delete promise", response)
+      res.redirect('/courses')
+    })
+  }
 })
 
 
