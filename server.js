@@ -76,7 +76,7 @@ app.get('/admin/course', (req, res)=> {
   if (req.session.userID) {
     res.send('REQ.SESSION EXISTS', req.session.userID)
   } else {
-    res.send("NOPE.")
+    res.send("NOPE.", req.session.userID)
   }
 })
 
@@ -101,7 +101,7 @@ app.post('/admin/adminDash', (req, res) => {
         console.log("RESPONSE", response)
         console.log("req session before", req.session.userID)
         console.log('setting session now')
-        req.session.userID = response[0].id;
+        req.session.userID = response[0].users_id;
         console.log('req session after', req.session.userID)
         res.render('adminDashboard')
       })
