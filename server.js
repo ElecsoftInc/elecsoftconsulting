@@ -69,7 +69,11 @@ app.get('/courses', (req, res)=> {
 })
 
 app.get('/admin', (req, res) => {
-  res.render('adminForm');
+  if(!req.session.userID){
+    res.render('adminForm');
+  } else {
+    res.redirect('/admin/adminDash')
+  }
 })
 
 app.get('/admin/course', (req, res)=> {
