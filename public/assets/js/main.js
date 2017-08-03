@@ -46,37 +46,37 @@
 					.appendTo($body);
 
 			// Navigation Panel.
-				// $(
-				// 	'<div id="navPanel">' +
-				// 		$('#nav').html() +
-				// 		'<a href="#navPanel" class="close"></a>' +
-				// 	'</div>'
-				// )
-				// 	.appendTo($body)
-				// 	.panel({
-				// 		delay: 500,
-				// 		hideOnClick: true,
-				// 		hideOnSwipe: true,
-				// 		resetScroll: true,
-				// 		resetForms: true,
-				// 		side: 'right'
-				// 	});
+				$(
+					'<div id="navPanel">' +
+						$('#nav').html() +
+						'<a href="#navPanel" class="close"></a>' +
+					'</div>'
+				)
+					.appendTo($body)
+					.panel({
+						delay: 500,
+						hideOnClick: true,
+						hideOnSwipe: true,
+						resetScroll: true,
+						resetForms: true,
+						side: 'right'
+					});
 
 			// Fix: Remove transitions on WP<10 (poor/buggy performance).
 				if (skel.vars.os == 'wp' && skel.vars.osVersion < 10)
 					$('#navPanel')
 						.css('transition', 'none');
 
-        $(window).scroll(function () {
-          if ($(window).scrollTop() >= 50) {
-            $('#header').css('background','white');
-            $('#a').css('color', 'black')
-            $('#nav').css('color', 'black')
-          } else {
-            $('.header').css('background','transparent');
-             $('#a', '#nav').css('color', 'white')
-          }
-        });
+        // $(window).scroll(function () {
+        //   if ($(window).scrollTop() >= 50) {
+        //     $('#header').css('background','white');
+        //     $('#a').css('color', 'black')
+        //     $('#nav').css('color', 'black')
+        //   } else {
+        //     $('.header').css('background','transparent');
+        //      $('#a', '#nav').css('color', 'white')
+        //   }
+        // });
 
         $('#testimonial').hide()
         $('.testimonial').on('click', function () {
