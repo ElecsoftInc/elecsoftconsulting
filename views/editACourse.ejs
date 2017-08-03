@@ -20,14 +20,17 @@
       </nav>
     </header>
 
-  <div id="<%= response[0].course_id %>">
+    <div>
+      <div id="<%= response[0].course_id %>">
 
-    <h3><strong><%= response[0].title %></strong></h3>
+        <h3><strong><%= response[0].title %></strong></h3>
 
-    <strong>Date</strong>: <%= response[0].date_of_event %> <br> <strong>Event URL</strong>: <a href="<%= response[0].event_url %>">Click Here</a>
+        <strong>Date</strong>: <%= response[0].date_of_event %> <br> <strong>Event URL</strong>: <a href="<%= response[0].event_url %>">Click Here</a>
 
-    <p><%= response[0].event_description %></p>
-  </div>
+        <p><%= response[0].event_description %></p>
+      </div>
+    </div>
+
 
 
   <!-- Form -->
@@ -36,20 +39,20 @@
       <form method="post" action="/admin/updateCourse/<%= response[0].course_id %>" id="adminCourseForm">
         <div class="row uniform 50%">
           <div class="6u 12u$(xsmall)">
-            <input type="text" name="updateDate" id="name" class="date" value="" placeholder="Date (DD/MM/YYYY)" required />
+            <input type="text" name="updateDate" id="name" class="date" value="<%= response[0].date_of_event %>" placeholder="Date (DD/MM/YYYY)" required />
           </div>
           <div class="6u$ 12u$(xsmall)">
-            <input type="text" name="updateUrl" id="email" class="url" value="" placeholder="Link to the Event" required/>
+            <input type="text" name="updateUrl" id="email" class="url" value="<%= response[0].event_url %>" placeholder="Link to the Event" required/>
           </div>
           <div class="6u$ 12u$(xsmall)">
-            <input type="text" name="updateTitle" id="email" class="title" value="" placeholder="Title here" required/>
+            <input type="text" name="updateTitle" id="email" class="title" value="<%= response[0].title %>" placeholder="Title here" required/>
           </div>
           <div class="12u$">
-            <textarea name="updateDescription" id="message" class="description" placeholder="Enter the description" rows="6" required></textarea>
+            <textarea name="updateDescription" id="message" class="description" placeholder="<%= response[0].event_description %>" rows="6" required></textarea>
           </div>
           <div class="12u$">
             <ul class="actions">
-              <li><input type="submit" id="updateButton" value="Add course" class="special" /></li>
+              <li><input type="submit" id="updateButton" value="Update Course" class="special" /></li>
               <li><input type="reset" value="Reset" /></li>
             </ul>
           </div>

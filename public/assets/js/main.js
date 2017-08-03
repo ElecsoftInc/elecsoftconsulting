@@ -121,7 +121,7 @@
           })
         })
 
-        $('updateButton').on('click', ()=> {
+        $('#updateButton').on('click', ()=> {
           $('#submitted').append('Your update to this course has been made. You will be redirected in five minutes.')
         })
 
