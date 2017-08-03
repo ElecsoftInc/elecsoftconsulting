@@ -92,7 +92,7 @@ app.post('/admin/adminDash', (req, res) => {
       console.log(req.body.email)
       console.log(req.body.password)
       knex('users')
-          .select('users_id', 'email', 'password')
+          .select('id', 'email', 'password')
           .where({
             email: req.body.email,
             password: req.body.password
@@ -101,7 +101,7 @@ app.post('/admin/adminDash', (req, res) => {
         console.log("RESPONSE", response)
         console.log("req session before", req.session.userID)
         console.log('setting session now')
-        req.session.userID = response[0].users_id;
+        req.session.userID = response[0].id;
         console.log('req session after', req.session.userID)
         res.render('adminDashboard')
       })
