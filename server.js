@@ -188,22 +188,20 @@ app.get('/admin/editCourse/:id', (req, res)=> {
 
 app.post('/admin/updateCourse/:id', (req, res)=> {
   if (req.session.userID){
-    knex.raw(`UPDATE courses SET title = ${req.body.title} WHERE course_id = ${req.params.id}`)
+    knex.raw('UPDATE courses SET title = ?? WHERE course_id = ?', [req.body.title, req.params.id])
         .then((response1)=> {
           console.log('response 1',response1)
-          knex.raw(`UPDATE courses SET date_of_event = ${req.body.date_of_event} WHERE course_id = ${req.params.id}`)
+          knex.raw('UPDATE courses SET date_of_event = ?? WHERE course_id = ?', [req.body.date_of_event, req.params.id])
               .then((response2)=> {
                 console.log('response 2',response2)
-                knex.raw(`UPDATE courses SET event_url = ${req.body.event_url} WHERE course_id = ${req.params.id}`)
+                knex.raw('UPDATE courses SET event_url = ?? WHERE course_id = ?', [req.body.event_url, req.params.id])
                     .then((response3)=> {
                       console.log('response 3',response3)
-                      knex.raw(`UPDATE courses SET event_description = ${req.body.event_description} WHERE course_id = ${req.params.id}`)
+                      knex.raw('UPDATE courses SET event_description = ?? WHERE course_id = ?', [req.body.event_description, req.params.id])
                           .then((response4)=> {
                             console.log('response4',response4)
                             console.log("THIS WORKED!!!!!!!")
-                            setTimeout(()=>{
-                              res.redirect('/courses')
-                            }, 5000)
+                            res.redirect('/courses')
                           })
                     })
               })
