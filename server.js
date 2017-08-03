@@ -88,6 +88,14 @@ app.get('/admin/templates', (req, res) => {
   res.send("This does not work yet");
 })
 
+app.get('/admin/adminDash', (req, res)=> {
+  if(req.session.userID){
+    res.render('adminDashboard')
+  } else {
+    res.redirect('/admin')
+  }
+})
+
 app.post('/admin/adminDash', (req, res) => {
   if(req.session.userID){
     res.render('adminDashboard');
