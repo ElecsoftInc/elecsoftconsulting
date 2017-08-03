@@ -122,7 +122,7 @@
         })
 
         $('#updateButton').on('click', ()=> {
-          $('#submitted').append('Your update to this course has been made. You will be redirected in five minutes.')
+          $('#submitted').append('Your update to this course has been made. You will be redirected in five seconds.')
         })
 
         $('deleteButton').on('click', ()=> {

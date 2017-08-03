@@ -36,7 +36,7 @@
   <!-- Form -->
     <section>
       <h3>Edit Course Here</h3>
-      <form method="post" action="/admin/updateCourse/<%= response[0].course_id %>" id="adminCourseForm">
+      <form method="post" action="/admin/updateCourse/<%= response[0].course_id %>" id="adminUpdateCourseForm">
         <div class="row uniform 50%">
           <div class="6u 12u$(xsmall)">
             <input type="text" name="updateDate" id="name" class="date" value="<%= response[0].date_of_event %>" placeholder="Date (DD/MM/YYYY)" required />
