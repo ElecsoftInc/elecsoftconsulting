@@ -67,16 +67,16 @@
 					$('#navPanel')
 						.css('transition', 'none');
 
-        // $(window).scroll(function () {
-        //   if ($(window).scrollTop() >= 50) {
-        //     $('#header').css('background','white');
-        //     $('#a').css('color', 'black')
-        //     $('#nav').css('color', 'black')
-        //   } else {
-        //     $('.header').css('background','transparent');
-        //      $('#a', '#nav').css('color', 'white')
-        //   }
-        // });
+        $(window).scroll(function () {
+          if ($(window).scrollTop() >= 50) {
+            $('#header').css('background','white');
+            $('#a').css('color', 'black')
+            $('#nav').css('color', 'black')
+          } else {
+            $('.header').css('background','transparent');
+             $('#a', '#nav').css('color', 'white')
+          }
+        });
 
         $('#testimonial').hide()
         $('.testimonial').on('click', function () {
