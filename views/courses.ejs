@@ -16,11 +16,20 @@ ElecSoft Consulting. Taking care of all your web needs.
 			<header id="header">
 				<h1><strong><a href="/">Elecsoft Consulting</a></strong></h1>
 				<nav id="nav">
-					<ul>
-					</ul>
           <% if (admin) {%>
+          <ul>
+            <li><a href="/admin/adminDash">Dashboard</a></li>
+            <li><a href="/admin/course">Add a Course</a></li>
+            <li><a href="/admin/templates">Template Stuff</a></li>
+          </ul>
           <p>Hello, admin!</p>
-          <%}%>
+          <%} else {%>
+          <ul>
+          <li><a href="/#three">Services</a></li>
+          <li><a href="/#two">Our Work</a></li>
+          <li><a href="/#four">Contact Us</a></li>
+        </ul>
+          <% } %>
 				</nav>
 			</header>
 

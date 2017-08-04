@@ -85,7 +85,12 @@ app.get('/admin/course', (req, res)=> {
 })
 
 app.get('/admin/templates', (req, res) => {
-  res.send("This does not work yet");
+  if (req.session.userID){
+    res.send("This does not work yet");
+  } else {
+    res.send('NOPE.')
+  }
+
 })
 
 app.get('/admin/adminDash', (req, res)=> {
@@ -179,37 +184,14 @@ app.post('/admin/updateCourse/:id', (req, res)=> {
       console.log('INSIDE THE RESPONSE', response)
       setTimeout(()=>{
         res.redirect('/courses')
-      }, 5000)
+      }, 2000)
     })
   } else {
     res.send('NOPE.')
   }
 })
 
-// app.post('/admin/updateCourse/:id', (req, res)=> {
-//   if (req.session.userID){
-//     knex.raw('UPDATE courses SET title = ?? WHERE course_id = ?', [req.body.title, req.params.id])
-//         .then((response1)=> {
-//           console.log('response 1',response1)
-//           knex.raw('UPDATE courses SET date_of_event = ?? WHERE course_id = ?', [req.body.date_of_event, req.params.id])
-//               .then((response2)=> {
-//                 console.log('response 2',response2)
-//                 knex.raw('UPDATE courses SET event_url = ?? WHERE course_id = ?', [req.body.event_url, req.params.id])
-//                     .then((response3)=> {
-//                       console.log('response 3',response3)
-//                       knex.raw('UPDATE courses SET event_description = ?? WHERE course_id = ?', [req.body.event_description, req.params.id])
-//                           .then((response4)=> {
-//                             console.log('response4',response4)
-//                             console.log("THIS WORKED!!!!!!!")
-//                             res.redirect('/courses')
-//                           })
-//                     })
-//               })
-//         })
-//   } else {
-//     res.send('NOPE.')
-//   }
-// })
+
 
 app.get('/admin/deleteCourse/:id', (req, res)=> {
   if(req.session.userID){

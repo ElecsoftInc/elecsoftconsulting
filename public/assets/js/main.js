@@ -118,6 +118,7 @@
             console.log('response', response);
             var data = JSON.parse(response).thanks;
             $('#thanksss').append(data)
+            window.location.replace('/courses')
           })
         })
 
