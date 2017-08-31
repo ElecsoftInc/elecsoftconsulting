@@ -18,11 +18,13 @@ ElecSoft Consulting. Taking care of all your web needs.
 				<nav id="nav">
           <% if (admin) {%>
           <ul>
+            <li><a href="/logout">Logout</a></li>
             <li><a href="/admin/adminDash">Dashboard</a></li>
             <li><a href="/admin/course">Add a Course</a></li>
             <li><a href="/admin/templates">Template Stuff</a></li>
+            <li><p>Hello, admin!</p></li>
           </ul>
-          <p>Hello, admin!</p>
+
           <%} else {%>
           <ul>
           <li><a href="/#three">Services</a></li>

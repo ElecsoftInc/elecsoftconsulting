@@ -8,6 +8,22 @@
 </head>
 <body>
 
+  <header id="header">
+    <h1><strong><a href="/">Elecsoft Consulting</a></strong></h1>
+    <nav id="nav">
+      <% if (admin) {%>
+      <ul>
+        <li><a href="/logout">Logout</a></li>
+        <li><a href="/admin/adminDash">Dashboard</a></li>
+        <li><a href="/admin/course">Add a Course</a></li>
+        <li><a href="/admin/templates">Template Stuff</a></li>
+        <li><p>Hello, admin!</p></li>
+      </ul>
+
+      <%}%>
+    </nav>
+  </header>
+
   <div class="12u$" style="margin-left: 30em;">
     <ul class="actions">
       <li><a class="button special" href="/admin/course">Add Course</a></li>

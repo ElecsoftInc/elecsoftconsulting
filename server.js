@@ -95,10 +95,25 @@ app.get('/admin/templates', (req, res) => {
 
 app.get('/admin/adminDash', (req, res)=> {
   if(req.session.userID){
-    res.render('adminDashboard')
+    var templateVar = {
+      admin: req.session.userID
+    }
+    res.render('adminDashboard', templateVar)
   } else {
     res.redirect('/admin')
   }
+})
+
+// Destroys session and redirects to home page.
+app.get('/logout', (req, res)=> {
+  req.session.destroy(function(err) {
+    if(err) {
+      console.log(err);
+    } else {
+      console.log('req.session',req.session)
+      res.redirect('/');
+    }
+  })
 })
 
 app.post('/admin/adminDash', (req, res) => {
