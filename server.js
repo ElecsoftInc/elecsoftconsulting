@@ -72,7 +72,7 @@ app.get('/admin', (req, res) => {
   if(!req.session.userID){
     res.render('adminForm');
   } else {
-    res.redirect('/admin/adminDash')
+    res.redirect('/admin/adminDashboard')
   }
 })
 
@@ -93,7 +93,7 @@ app.get('/admin/templates', (req, res) => {
 
 })
 
-app.get('/admin/adminDash', (req, res)=> {
+app.get('/admin/adminDashboard', (req, res)=> {
   if(req.session.userID){
     var templateVar = {
       admin: req.session.userID
@@ -135,7 +135,10 @@ app.post('/admin/adminDash', (req, res) => {
         console.log('setting session now')
         req.session.userID = response[0].id;
         console.log('req session after', req.session.userID)
-        res.render('adminDashboard')
+        var templateVar = {
+          admin: req.session.userID
+        }
+        res.render('adminDashboard', templateVar)
       })
   }
 })
