@@ -52,11 +52,13 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-
+//sitemap
 app.get('/sitemap.xml', (req, res) => {
   res.render('sitemap')
 })
 
+//route for the courses page. Selects everything from the courses page and
+//sends to front end to be rendered on the courses.ejs template
 app.get('/courses', (req, res)=> {
   knex
     .select('*')
@@ -68,6 +70,8 @@ app.get('/courses', (req, res)=> {
     })
 })
 
+//get route for the admin login page.
+//checks to see if session exists, if no, then renders login form, or else redirects to admin dashboard.
 app.get('/admin', (req, res) => {
   if(!req.session.userID){
     res.render('adminForm');
@@ -76,14 +80,17 @@ app.get('/admin', (req, res) => {
   }
 })
 
+//get route for course page where admin can add courses.
+//if session exists, page is rendered, else, redirected to login form
 app.get('/admin/course', (req, res)=> {
   if (req.session.userID) {
     res.render('addCourse')
   } else {
-    res.send("NOPE.")
+    res.redirect("adminForm")
   }
 })
 
+//Get route for templates page.
 app.get('/admin/templates', (req, res) => {
   if (req.session.userID){
     res.send("This does not work yet");
@@ -93,6 +100,7 @@ app.get('/admin/templates', (req, res) => {
 
 })
 
+//Get route for admin dashboard.
 app.get('/admin/adminDashboard', (req, res)=> {
   if(req.session.userID){
     var templateVar = {
@@ -116,33 +124,39 @@ app.get('/logout', (req, res)=> {
   })
 })
 
+//posting from the login form.
+//selecting the id, email and username where the email and password are the same.
+//then setting session to id and rendering dashboard
 app.post('/admin/adminDash', (req, res) => {
   if(req.session.userID){
     res.render('adminDashboard');
   } else{
-      console.log(req.body);
-      console.log(req.body.email)
-      console.log(req.body.password)
-      knex('users')
-          .select('id', 'email', 'password')
-          .where({
-            email: req.body.email,
-            password: req.body.password
-          })
-      .then((response)=> {
-        console.log("RESPONSE", response)
-        console.log("req session before", req.session.userID)
-        console.log('setting session now')
-        req.session.userID = response[0].id;
-        console.log('req session after', req.session.userID)
-        var templateVar = {
-          admin: req.session.userID
-        }
-        res.render('adminDashboard', templateVar)
-      })
+    console.log(req.body);
+    console.log(req.body.email)
+    console.log(req.body.password)
+    knex('users')
+        .select('id', 'email', 'password')
+        .where({
+          email: req.body.email,
+          password: req.body.password
+        })
+    .then((response)=> {
+      console.log("RESPONSE", response)
+      console.log("req session before", req.session.userID)
+      console.log('setting session now')
+      req.session.userID = response[0].id;
+      console.log('req session after', req.session.userID)
+      var templateVar = {
+        admin: req.session.userID
+      }
+      res.render('adminDashboard', templateVar)
+    })
   }
 })
 
+//post route for the add a course form.
+//inserts everything entered into the form into the courses table.
+//then sends a thank you message to the form end.
 app.post('/admin/addACourse', (req, res)=> {
   console.log(req.body)
   console.log(req.body.date)
@@ -156,15 +170,17 @@ app.post('/admin/addACourse', (req, res)=> {
         event_url: req.body.url,
         event_description: req.body.description
       })
-      .then((response)=> {
-        console.log("inside response", response)
-        var thankYouMsg = {
-          thanks: 'Your course has been added. Go to the courses page and check it out.'
-        }
-        res.send(JSON.stringify(thankYouMsg));
-      })
+  .then((response)=> {
+    console.log("inside response", response)
+    var thankYouMsg = {
+      thanks: 'Your course has been added. Go to the courses page and check it out.'
+    }
+    res.send(JSON.stringify(thankYouMsg));
+  })
 })
 
+//edit route for each course by id.
+// renders selected course onto a specific page onto a page to be edited.
 app.get('/admin/editCourse/:id', (req, res)=> {
   console.log("HELLLLLLO")
   console.log('req.params', req.params)
@@ -176,16 +192,19 @@ app.get('/admin/editCourse/:id', (req, res)=> {
       .where({
         course_id: req.params.id
       })
-      .then((response) => {
-        console.log("this is the response from the server", response);
-        var templateVar = {response: response, admin: req.session.userID};
-        res.render('editACourse', templateVar)
-      })
+    .then((response) => {
+      console.log("this is the response from the server", response);
+      var templateVar = {response: response, admin: req.session.userID};
+      res.render('editACourse', templateVar)
+    })
   } else {
     res.send('NOOOOOOPE.')
   }
 })
 
+//post route for editing a apecific course.
+//selects course by id and then updates the course accoridng to the changes made in the form.
+//then redirects to the courses page after two seconds
 app.post('/admin/updateCourse/:id', (req, res)=> {
   if (req.session.userID){
     knex('courses')
@@ -209,8 +228,9 @@ app.post('/admin/updateCourse/:id', (req, res)=> {
   }
 })
 
-
-
+//delete route for course by id.
+//selects course by id and then deletes it.
+//then redirects to courses page so admin can make sure its deleted
 app.get('/admin/deleteCourse/:id', (req, res)=> {
   if(req.session.userID){
     knex('courses')
@@ -255,9 +275,6 @@ app.post('/mail', (req, res) => {
       console.log('Message %s sent: %s', info.messageId, info.response)
   });
 
-  // setTimeout(function () {
-  //   res.redirect('/');
-  // }, 5000);
   var templateVar = {
     thanks: 'Thank you for getting in touch. We will get back to you shortly.'
   }
